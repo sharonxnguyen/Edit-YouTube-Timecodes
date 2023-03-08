@@ -1,0 +1,41 @@
+from datetime import datetime, timedelta
+
+timecodes = """0:21 Quote of the Week
+2:11 RED FLAGS to watch out for
+4:32 Asking a date about their EX
+5:08 Setting the intention to DATE SERIOUSLY on the FIRST DATE 
+8:52 Defining the Relationship
+17:17 how to END the TALKING STAGE?
+20:07 When do you say “I LOVE YOU”?
+24:46 Will you be my GF?
+28:24 Childhood Games
+34:56 Right Person, Wrong Time; Wrong Person, Right Time
+43:36 What does it mean to BE IN LOVE? 
+46:38 S.O. staying friends with PAST flirting flings
+56:33 Would you tell people about your RELATIONSHIP ISSUES?"""
+
+line = timecodes.split("\n")
+
+# x = input("Enter seconds to change: ")
+x = 7
+
+for i in range(len(line)):
+    duration = line[i].split(" ", 1)
+    time_str = duration[0]
+
+
+    if (len(time_str)>5):
+        new = datetime.strptime(time_str, '%H:%M:%S') + timedelta(seconds=x)
+        print(f"{new.time()} {duration[1]}")
+    else:
+        new = datetime.strptime(time_str, '%M:%S') + timedelta(seconds=x)
+        durationNew = f"{new.time()} {duration[1]}"
+        
+        # new duration change made duration 1+ hour
+        # FORMAT hour:minute:seconds
+        if (durationNew[:2] != '00'):
+            print(f"{new.time()} {duration[1]}")
+        # FORMAT minute:seconds
+        else:
+            new = datetime.strftime(new, '%M:%S') 
+            print(f"{new} {duration[1]}")
